@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import './style.scss'
 
 function App() {
   const [text, setText] = useState("");
+  const [sum, setSum] = useState("")
   const [type, setType] = useState("SpaCy")
   const [ratio, setRatio] = useState("0.8")
 
@@ -25,20 +27,42 @@ function App() {
 
   return (
     <div>
-      <textarea
-        type="text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
-      <select value={type} onChange={(e) => setType(e.target.value)}>
-        <option value="SpaCy">SpaCy</option>
-        <option value="NLTK">NLTK</option>
-        <option value="GenSim">GenSim</option>
-        <option value="Summa">GenSim</option>
-      </select>
+      <h1>Summarization Tool</h1>
+      <div class="textarea-container">
+        <textarea
+          value={text}
+          name="textarea"
+          placeholder='Input you document'
+          onChange={(e) => setText(e.target.value)}>
+        </textarea>
+      </div>
 
-      <input type="text" value={ratio} onChange={(e) => setRatio(e.target.value)} />
-      <input type="submit" value="Summarize" onClick={(handleClick)} />
+      <div class="container">
+        <div class="select-container">
+          <select value={type} onChange={(e) => setType(e.target.value)}>
+            <option value="SpaCy">SpaCy</option>
+            <option value="NLTK">NLTK</option>
+            <option value="GenSim">GenSim</option>
+            <option value="Summa">Summa</option>
+          </select>
+        </div>
+        <div class="input-container">
+          <input type="text" value={ratio} onChange={(e) => setRatio(e.target.value)} />
+        </div>
+      </div>
+
+      <div class="submit-container">
+        <button type="submit" onClick={handleClick}>Summarize</button>
+      </div>
+
+      <div class="textarea-container">
+        <textarea
+          value={text}
+          name="textarea"
+          placeholder='Your summarization'
+          onChange={(e) => setText(e.target.value)}>
+        </textarea>
+      </div>
     </div>
 
 
