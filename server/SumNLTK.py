@@ -3,7 +3,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
 import heapq  
 
-def nltk_summarizer(raw_text):
+def summarize(raw_text):
 	stopWords = set(stopwords.words("english"))
 	word_frequencies = {}  
 	for word in nltk.word_tokenize(raw_text):  
@@ -33,5 +33,5 @@ def nltk_summarizer(raw_text):
 
 	summary_sentences = heapq.nlargest(7, sentence_scores, key=sentence_scores.get)
 
-	summary = ' '.join(summary_sentences)  
+	summary = ' '.join(summary_sentences)
 	return summary

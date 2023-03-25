@@ -1,6 +1,6 @@
 from gensim.summarization import summarize
 
-def gensim_summarizer(text):
+def summarize(text):
         summary = summarize(text)
         kws = keywords(input)
         return summary

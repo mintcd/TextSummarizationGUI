@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 function App() {
-  const [input, setInput] = useState("");
+  const [text, setText] = useState("");
   const [type, setType] = useState("SpaCy")
   const [ratio, setRatio] = useState("0.8")
 
@@ -17,11 +17,8 @@ function App() {
       }
     };
 
-    let data = JSON.stringify({
-      'input': { input },
-      'type': { type },
-      'ratio': { ratio }
-    })
+    let data = JSON.stringify(
+      { text, type, ratio })
 
     xml.send(data)
   }
@@ -30,8 +27,8 @@ function App() {
     <div>
       <textarea
         type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
+        value={text}
+        onChange={(e) => setText(e.target.value)}
       />
       <select value={type} onChange={(e) => setType(e.target.value)}>
         <option value="SpaCy">SpaCy</option>
