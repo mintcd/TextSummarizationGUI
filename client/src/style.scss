@@ -1,4 +1,5 @@
 .container {
+  margin-top: 8cm;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -48,12 +49,13 @@ textarea {
 
 }
 
-.form h2 {
-  margin: 0;
-  margin-bottom: 2rem;
-  font-size: 2rem;
-  font-weight: bold;
+h2 {
+  font-size: 28px;
+  color: #2a145e;
   text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px #fff;
+  font-family: Arial, sans-serif;
 }
 
 .form-control {
@@ -117,6 +119,10 @@ button:hover {
 
 .input-container label {
   margin-bottom: 0.5rem;
+}
+
+.output-area {
+  margin-bottom: 2cm;
 }
 
 .response textarea {

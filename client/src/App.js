@@ -26,8 +26,9 @@ function App() {
 
     return (
         <div className="container">
+            <h1> Text summarizer GUI </h1>
             <div className="input-container">
-                <h2>Input Text</h2>
+                <h2>Input your text</h2>
                 <textarea
                     id="inputText"
                     value={inputText}
@@ -47,12 +48,12 @@ function App() {
                     </div>
                 </div>
             </label>
-            <button type="submit" onClick={handleSubmit}>Submit</button>
+            <button type="submit" onClick={handleSubmit}>Summarize</button>
 
             {isLoading && <div className="loading-spinner"></div>}
             <div className="input-container">
-                <h2>Response Text</h2>
-                <textarea value={responseText} readOnly></textarea>
+                <h2>Summary</h2>
+                <textarea className='output-area' value={responseText} readOnly></textarea>
             </div>
 
         </div>
