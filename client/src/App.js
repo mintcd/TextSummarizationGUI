@@ -36,7 +36,7 @@ function App() {
                 />
             </div>
             <label>
-                Select summarization method:
+                <h3> Select summarization method </h3>
                 <div className="radio-group">
                     <div className="radio" style={{ display: 'inline-block', marginRight: '10px' }}>
                         <input type="radio" id="spacy" name="method" value="spacy" checked={method === 'spacy'} onChange={handleMethodChange} />

@@ -83,7 +83,7 @@ def handle_post_request():
         for sentence in summarizer(parser.document, SENTENCES_COUNT):
             response += (str(sentence) + ' ')
     else:
-        response == 'Choose again'
+        response == 'Choose your method'
     return jsonify(response), 200
 
 
