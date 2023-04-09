@@ -1,72 +1,62 @@
-import React, { useState, useEffect } from 'react';
-import './style.scss'
+import React, { useState } from 'react';
+import './style.scss';
 
 function App() {
-  const [text, setText] = useState("");
-  const [sum, setSum] = useState("")
-  const [type, setType] = useState("SpaCy")
-  const [ratio, setRatio] = useState("0.8")
+    const [inputText, setInputText] = useState('');
+    const [responseText, setResponseText] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [method, setMethod] = useState('spacy');
 
-  const handleClick = (event) => {
-    event.preventDefault();
-    let xml = new XMLHttpRequest();
-    xml.open("POST", "http://localhost:5000/summarizer", true)
-    xml.setRequestHeader("Content-type", "application/json");
-    xml.setRequestHeader("Access-Control-Allow-Origin", "*");
-    xml.onreadystatechange = function () {
-      if (xml.readyState === 4 && xml.status === 200) {
-        console.log(xml.responseText);
-      }
+    const handleMethodChange = (event) => {
+        setMethod(event.target.value);
     };
 
-    let data = JSON.stringify(
-      { text, type, ratio })
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setIsLoading(true);
+        const response = await fetch("http://localhost:5000/summarizer", {
+            method: 'POST',
+            body: JSON.stringify({ inputText, method }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const responseData = await response.json();
+        setResponseText(responseData);
+        setIsLoading(false);
+    };
 
-    xml.send(data)
-  }
+    return (
+        <div className="container">
+            <div className="input-container">
+                <h2>Input Text</h2>
+                <textarea
+                    id="inputText"
+                    value={inputText}
+                    onChange={(event) => setInputText(event.target.value)}
+                />
+            </div>
+            <label>
+                Select summarization method:
+                <div className="radio-group">
+                    <div className="radio" style={{ display: 'inline-block', marginRight: '10px' }}>
+                        <input type="radio" id="spacy" name="method" value="spacy" checked={method === 'spacy'} onChange={handleMethodChange} />
+                        Spacy
+                    </div>
+                    <div className="radio" style={{ display: 'inline-block', marginRight: '10px' }}>
+                        <input type="radio" id="sumy" name="method" value="sumy" checked={method === 'sumy'} onChange={handleMethodChange} />
+                        Sumy
+                    </div>
+                </div>
+            </label>
+            <button type="submit" onClick={handleSubmit}>Submit</button>
 
-  return (
-    <div>
-      <h1>Summarization Tool</h1>
-      <div class="textarea-container">
-        <textarea
-          value={text}
-          name="textarea"
-          placeholder='Input you document'
-          onChange={(e) => setText(e.target.value)}>
-        </textarea>
-      </div>
+            {isLoading && <div className="loading-spinner"></div>}
+            <div className="input-container">
+                <h2>Response Text</h2>
+                <textarea value={responseText} readOnly></textarea>
+            </div>
 
-      <div class="container">
-        <div class="select-container">
-          <select value={type} onChange={(e) => setType(e.target.value)}>
-            <option value="SpaCy">SpaCy</option>
-            <option value="NLTK">NLTK</option>
-            <option value="GenSim">GenSim</option>
-            <option value="Summa">Summa</option>
-          </select>
         </div>
-        <div class="input-container">
-          <input type="text" value={ratio} onChange={(e) => setRatio(e.target.value)} />
-        </div>
-      </div>
-
-      <div class="submit-container">
-        <button type="submit" onClick={handleClick}>Summarize</button>
-      </div>
-
-      <div class="textarea-container">
-        <textarea
-          value={text}
-          name="textarea"
-          placeholder='Your summarization'
-          onChange={(e) => setText(e.target.value)}>
-        </textarea>
-      </div>
-    </div>
-
-
-  )
+    );
 }
 
-export default App
+export default App;
